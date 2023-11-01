@@ -18,6 +18,24 @@ set "fin=%script_path%output\%name%.exe"
 copy /b "%love%" + "%out%" "%fin%"
 del /f "%out%"
 
+for /r "%engine%" %%F in (*.dll) do (
+    set "dll_files=!dll_files! "%%F""
+)
+
+for %%D in (%dll_files%) do (
+    copy /y "%%~D" "%script_path%output\%%~nxD"
+)
+
+set "to_zip=%script_path%output"
+set "out=%script_path%output\export.zip"
+
+"C:\Program Files (x86)\7-Zip\7z.exe" a -tzip "%out%" "%to_zip%\*"
+
+
+
+
+
+
 :: Capture the end time
 set "end_time=!time!"
 
